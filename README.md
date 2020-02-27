@@ -18,5 +18,5 @@ inp.v=new Proxy(inp.v,{set:(o,k,v)=>{return inp.caller(o,k,v),o[k]=v })
 
 ```
 ```
-"$k==='A'||$k==='B'".replace(/\$[\$\w]+/g,d=>{return `inp.v["${d}"]` })
+"$k==='A'||$k==='B'".replace(/\$[\$\w]+/g,d=>`inp.v["${d}"]`)
 ```
