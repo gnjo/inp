@@ -1,6 +1,11 @@
 # inp
 minimal input engine
 ```
+//pug
+script(src="https://gnjo.github.io/inp/inp.js")
+script(src="https://gnjo.github.io/inp/inp.lib.js")
+```
+```
 
 let text=`
 
@@ -11,6 +16,8 @@ k>
 
 `;
 
+let caller=(o,k,v)=>{}
+let userlib={}
 inp.run(text,usrlib,caller)
 
 ```
