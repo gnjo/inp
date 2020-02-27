@@ -203,8 +203,9 @@ function keycall(caller){
    isstring(text)?o.add(text):text.map(d=>o.add(d))//v1.0 multi text
    o.makefootstep()//v1.0
    //if(debugflg)console.log(o.lists)
-   console.log(o.caller)
-   o.v=new Proxy({},{ set:(o,k,v)=>{return o.caller(o,k,v),o[k]=v } })   
+   //console.log(o.caller)
+   let caller=o.caller
+   o.v=new Proxy({},{ set:(o,k,v)=>{return caller(o,k,v),o[k]=v } })   
    fps(o._fps,o.lop)
    return o;
   }
