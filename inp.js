@@ -185,10 +185,9 @@ function keycall(caller){
   o.jumpback=0
   o.setjumpback=()=>{return o.jumpback=o.line+1}  //v0.9
   o.search=(d)=>{return (d==='###')?o.jumpback:o.jumps[d]}
-  o.makefootstep=(old)=>{
+  o.makefootstep=()=>{
    //v1.0 if footstep input like a save, $$f is exist.
-   o.v['$$f']={},Object.keys(o.jumps).map(k=>o.v['$$f'][k]=0);
-   o.v['$$f']=Object.assign(o.v['$$f'],old)
+   if(!o.v['$$f'])o.v['$$f']={},Object.keys(o.jumps).map(k=>o.v['$$f'][k]=0);
   }
   o.cmd=(list)=>{//{str,type,line}
    return (o.cmds[list.type]||o.cmds['CMM'])(list.str,o)
@@ -205,8 +204,8 @@ function keycall(caller){
    isstring(text)?o.add(text):text.map(d=>o.add(d))//v1.0 multi text
    o.makefootstep()//v1.0
    //if(debugflg)console.log(o.lists)
-   console.log(o.v['$$f'])
-   o.v=new Proxy({},{ set:(oo,k,v)=>{return o.caller(oo,k,v),oo[k]=v } })   
+   //console.log(o.v['$$f'])
+   o.v=new Proxy(o.v,{ set:(oo,k,v)=>{return o.caller(oo,k,v),oo[k]=v } })   
    fps(o._fps,o.lop)
    return o;
   }
