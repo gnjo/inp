@@ -1,6 +1,6 @@
 /*history
 v0.1 make
-v0.2 keycall to inp.lib.j
+v0.2 keycall to inp.lib.js
 */
 const CR="\n";
 var vlib={}
