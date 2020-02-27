@@ -203,7 +203,7 @@ function keycall(caller){
    isstring(text)?o.add(text):text.map(d=>o.add(d))//v1.0 multi text
    o.makefootstep()//v1.0
    //if(debugflg)console.log(o.lists)
-   //console.log(o.caller)
+   console.log(o.v['$$f'])
    o.v=new Proxy({},{ set:(oo,k,v)=>{return o.caller(oo,k,v),oo[k]=v } })   
    fps(o._fps,o.lop)
    return o;
