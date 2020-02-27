@@ -204,8 +204,7 @@ function keycall(caller){
    o.makefootstep()//v1.0
    //if(debugflg)console.log(o.lists)
    //console.log(o.caller)
-   let caller=o.caller
-   o.v=new Proxy({},{ set:(o,k,v)=>{return caller(o,k,v),o[k]=v } })   
+   o.v=new Proxy({},{ set:(oo,k,v)=>{return o.caller(oo,k,v),oo[k]=v } })   
    fps(o._fps,o.lop)
    return o;
   }
