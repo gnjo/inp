@@ -2,7 +2,7 @@
 v0.1 make
 v0.2 keycall to inp.lib.js
 */
-const CR="\n";
+const CR="\n",HIDE=void 0
 var vlib={}
 ;(function(root){
  var fps=60,ms=50,count=0,callary=[],running=false,stopflg=false,cl=void 0
