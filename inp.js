@@ -25,35 +25,28 @@ var vlib={}
  root.getcount=getcount
 })(this); 
 
-/////////////////////////////////////////
-var $$l //nowread line
-var $$$ //return
-var $wk //dump
-/////////////////////////////////////////
-var $$f //v1.0 footstep address jump history
-var $$k //key
-var $keyconf=keyconfig('w,a,s,d,j,k,i,l,u,o')
+;(function(root){ 
+  var keys={}
 function keyconfig(str){
  //$keyconf={37:'<',39:'>',38:'^',40:'v',70:'A',68:'B',65:'X',83:'Y',82:'R',69:'L'}
  let t="^,<,v,>,A,B,X,Y,L,R".split(',')
  ,k=str.split(',').map(d=>(d.length>1)?d:d.toUpperCase().charCodeAt(0))
- ,keys={}
- k.map((d,i)=>{ keys[d]=t[i] })
+  k.map((d,i)=>{ keys[d]=t[i] })
  return keys
 }
 function keycall(caller){
- $$k=''//oldkey reset
  let el=document.documentElement,del=()=>{el.onkeydown=void 0}
  //caller(k,del) //if use end, need the del()
- el.onkeydown=function(ev){
-  if(/*$waitcount||*/!$keyconf[ev.which])return;
-  $$k=$keyconf[ev.which],caller($$k,del)
- }
+ el.onkeydown=function(ev){ if(keys[ev.which])caller(keys[ev.which],del) }
 }
 /*keycall((k,del)=>{
  fn.q('pre').textContent=k
  if(k==='X')del();
 })*/
+ keyconfig('w,a,s,d,j,k,i,l,u,o');//initialize
+ root.keyconfig=keyconfig
+ root.keycall=keycall
+})(this); 
 /////////////////////////////////////////
 ;(function(root){
   //MRK JMP FNC EVM EVL  
@@ -116,32 +109,15 @@ function keycall(caller){
  }
  root.reader=entry;
 })(this);
-/////////////////////////////////////////
 ;(function(root){
- let fn={}
- fn.toSmall=(str)=>{
-  return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
-   return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
-  }) 
- }
- fn.toBig=(str)=>{
-  return str.replace(/[A-Za-z0-9]/g, function(s) {
-   return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
-  });
- }
- root.toSmall=fn.toSmall;
- root.toBig=fn.toBig
-})(this);
-///////////////////////////////////////////
-;(function(root){
- let toBig=root.toBig
- ;
  //comment trim 
  function _c(d){return d.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,'')}
  //eval
- function _(obj){return Function('return (' + obj + ')')()}
+ //special
+ function f(a){return a.replace(/\$[\$\w]+/g,d=>`inp.v["${d}"]`)}
+ function _(obj){return Function(`return (${f(obj)}) `)()}
  //message rep
- function _m(obj,bigflg){return obj.replace(/{(.*?)}/g,(d,dd)=>{return $$$=_(dd),bigflg?toBig(''+$$$):$$$})}
+ function _m(obj){return obj.replace(/{(.*?)}/g,(d,dd)=>{return _(dd)}) }
  //trim { and }
  function _t(obj){return obj.replace(/{|}/g,'')}
  function _t2(obj){return obj.replace(/{{{|}}}/g,'').trim()}
@@ -156,30 +132,30 @@ function keycall(caller){
   //MRK JMP FNC EVM EVL 
  let vlib=root.vlib 
  vlib.CMM=(str,o)=>{return o.next()}
- vlib.EVL=(str,o)=>{return $$$ = _(_t(str)),o.next()}
- vlib.EVM=(str,o)=>{return $$$ =_m(_t2(str)),o.next()}
+ vlib.EVL=(str,o)=>{return o.v['$$$'] = _(_t(str)),o.next()}
+ vlib.EVM=(str,o)=>{return o.v['$$$'] =_m(_t2(str)),o.next()}
  vlib.JMP=(str,o)=>{
   let a=str.split('>>>'),addr=_m(a[1]),i=/^\d+$/.test(addr)?parseInt(i):o.search(addr)
   //console.log(a)
-  if($MRK!=addr)o.setjumpback() //v0.9
+  if(o.v['$MRK']!=addr)o.setjumpback() //v0.9
   let flg = _(_t(a[0]));
-  $$$ =flg;
+  //$$$ =flg;
   //console.log('!jump!',i)
   if(!flg || i==void 0)return o.next()
-  else return $JMP=i,o.next(i)
+  else return o.v['$JMP']=i,o.next(i)
  }
  vlib.MRK=(str,o)=>{
-  $$$ = o.line////////
-  $MRK =str;//v0.9
-  let n=$$f[str]
-  if(n||n===0) $$f[str]=n+1
+  o.v['$$$'] = o.line////////
+  o.v['$MRK'] =str;//v0.9
+  let n=o.v['$$f'][str]
+  if(n||n===0) o.v['$$f'][str]=n+1
   return o.next();
  }
  vlib.FNC=(str,o)=>{
   let a=str.split('>'),cmd=a[0],_str=a[1]
   if(!vlib[cmd])return vlib.CMM(str,o),console.log('vlib cmd not found',cmd)
   //
-  if(root['$'+cmd]===undefined) root['$'+cmd]=void 0 //create valiable
+  if(o.v['$'+cmd]===undefined) o.v['$'+cmd]=void 0 //create valiable
   return vlib[cmd](_str,o) //call next() is top function
  }
  root.vlib=vlib
@@ -188,10 +164,8 @@ function keycall(caller){
 ;(function(root){
   let vlib=root.vlib
   vlib.k=(str,o)=>{
-  $k=$$k=void 0
-  keycall((k,del)=>{
-   if(k) $k=k,del(),o.next();
-  })
+  o.v['$k']=void 0
+  keycall((k,del)=>{ if(k) o.v['$k']=k,del(),o.next(); })
   return;
  } 
  root.vlib=vlib
@@ -203,22 +177,23 @@ function keycall(caller){
   let o=reader();
   o.keyset='w,a,s,d,j,k,i,l,u,o'
   o._fps=_fps||60
+  o.v={}
   o.cmds=Object.assign(vlib,userlib)
   o.jumpback=0
   o.setjumpback=()=>{return o.jumpback=o.line+1}  //v0.9
   o.search=(d)=>{return (d==='###')?o.jumpback:o.jumps[d]}
   o.makefootstep=()=>{
    //v1.0 if footstep input like a save, $$f is exist.   
-   if(!$$f) $$f={},Object.keys(o.jumps).map(k=>$$f[k]=0);
+   if(!o.v['$$f']) o.v['$$f']={},Object.keys(o.jumps).map(k=>o.v['$$f'][k]=0);
   }
   o.cmd=(list)=>{//{str,type,line}
    return (o.cmds[list.type]||o.cmds['CMM'])(list.str,o)
   }
   o.lop=()=>{
    if(o.isend())return console.log('endline') /////
-   $$l=o.line //v0.9
+   //$$l=o.line //v0.9
    let list=o.get();
-   if(list) o.cmd(list)
+   if(list) o.v['$$l']=o.line,o.cmd(list);
    if(list&&debugflg)console.log(list)
   }
   o.run=()=>{
