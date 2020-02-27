@@ -198,7 +198,7 @@ function keycall(caller){
    //if(list&&debugflg)console.log(list)
   }
   o.run= function entry(text,userlib,caller){
-   o.caller=caller||(o,k,v)=>{return}
+   o.caller=caller||function(o,k,v){return}
    o.cmds=Object.assign(vlib,userlib)   
    let isstring = function(obj){return toString.call(obj) === '[object String]'}
    isstring(text)?o.add(text):text.map(d=>o.add(d))//v1.0 multi text
