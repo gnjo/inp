@@ -146,7 +146,7 @@ function keycall(caller){
  vlib.MRK=(str,o)=>{
   o.v['$$$'] = o.line////////
   o.v['$MRK'] =str;//v0.9
-  console.log(o.v,str)
+  //console.log(o.v,str)
   let n=o.v['$$f'][str]
   if(n||n===0) o.v['$$f'][str]=n+1
   return o.next();
