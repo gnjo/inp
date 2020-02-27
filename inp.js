@@ -185,9 +185,10 @@ function keycall(caller){
   o.jumpback=0
   o.setjumpback=()=>{return o.jumpback=o.line+1}  //v0.9
   o.search=(d)=>{return (d==='###')?o.jumpback:o.jumps[d]}
-  o.makefootstep=()=>{
-   //v1.0 if footstep input like a save, $$f is exist.   
-   if(!o.v['$$f']) o.v['$$f']={},Object.keys(o.jumps).map(k=>o.v['$$f'][k]=0);
+  o.makefootstep=(old)=>{
+   //v1.0 if footstep input like a save, $$f is exist.
+   o.v['$$f']={},Object.keys(o.jumps).map(k=>o.v['$$f'][k]=0);
+   o.v['$$f']=Object.assign(o.v['$$f'],old)
   }
   o.cmd=(list)=>{//{str,type,line}
    return (o.cmds[list.type]||o.cmds['CMM'])(list.str,o)
