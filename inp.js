@@ -173,11 +173,13 @@ function keycall(caller){
 //////////////////////////////////  
 ;(function(root){
  let vlib=root.vlib,fps=root.fps
- function entry(text,userlib,_fps,debugflg){
+ function entry(text,userlib,caller){
   let o=reader();
   o.keyset='w,a,s,d,j,k,i,l,u,o'
-  o._fps=_fps||60
+  o._fps=60
   o.v={}
+  o.dummy=(o,k,v)=>{return}
+  o.caller=caller||o.dummy
   o.cmds=Object.assign(vlib,userlib)
   o.jumpback=0
   o.setjumpback=()=>{return o.jumpback=o.line+1}  //v0.9
@@ -194,13 +196,14 @@ function keycall(caller){
    //$$l=o.line //v0.9
    let list=o.get();
    if(list) o.v['$$l']=o.line,o.cmd(list);
-   if(list&&debugflg)console.log(list)
+   //if(list&&debugflg)console.log(list)
   }
   o.run=()=>{
    let isstring = function(obj){return toString.call(obj) === '[object String]'}
    isstring(text)?o.add(text):text.map(d=>o.add(d))//v1.0 multi text
    o.makefootstep()//v1.0
-   if(debugflg)console.log(o.lists)   
+   //if(debugflg)console.log(o.lists)
+   o.v=new Proxy({},{ set:(o,k,v)=>{return o.caller(o,k,v),o[k]=v } })   
    fps(_fps,o.lop)
    return o;
   }
