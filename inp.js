@@ -1,6 +1,5 @@
 /*history
 v0.1 make
-v1.0 seln demo https://codepen.io/gnjo/pen/jOPBVNj
 */
 const CR="\n";
 var vlib={}
@@ -174,14 +173,13 @@ function keycall(caller){
 //////////////////////////////////  
 ;(function(root){
  let vlib=root.vlib,fps=root.fps
- function entry(text,userlib,caller){
+  ;
   let o=reader();
   o.keyset='w,a,s,d,j,k,i,l,u,o'
   o._fps=60
   o.v={}
-  o.dummy=(o,k,v)=>{return}
-  o.caller=caller||o.dummy
-  o.cmds=Object.assign(vlib,userlib)
+  o.caller
+  o.cmds
   o.jumpback=0
   o.setjumpback=()=>{return o.jumpback=o.line+1}  //v0.9
   o.search=(d)=>{return (d==='###')?o.jumpback:o.jumps[d]}
@@ -199,7 +197,9 @@ function keycall(caller){
    if(list) o.v['$$l']=o.line,o.cmd(list);
    //if(list&&debugflg)console.log(list)
   }
-  o.run=()=>{
+  o.run= function entry(text,userlib,caller){
+   o.caller=caller||(o,k,v)=>{return}
+   o.cmds=Object.assign(vlib,userlib)   
    let isstring = function(obj){return toString.call(obj) === '[object String]'}
    isstring(text)?o.add(text):text.map(d=>o.add(d))//v1.0 multi text
    o.makefootstep()//v1.0
@@ -210,7 +210,5 @@ function keycall(caller){
    return o;
   }
   ;
-  return o.run();
- }
- root.inp=entry;
+ root.inp=o;
 })(this);
