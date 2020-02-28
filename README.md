@@ -28,7 +28,8 @@ k> //keywait
 wait>100 //100ms
 m>message,title //message line 3
 slot>data,title //loop data keypress is stop
-sel>data,title 
+sel>data,title,n //start number is n
+yon>title,y  //yes or no, y or n
 show>name //flavor
 hide>name //flavor
 ```
