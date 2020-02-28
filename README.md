@@ -19,5 +19,11 @@ k>
 let caller=(o,k,v)=>{}
 let userlib={}
 inp.run(text,usrlib,caller)
-
+```
+## basic command
+```
+k> //keywait
+wait>100 //100ms
+m>message,title //message line 3
+slot>data,title //loop data keypress is stop
 ```
