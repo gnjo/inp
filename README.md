@@ -27,6 +27,6 @@ wait>100 //100ms
 m>message,title //message line 3
 slot>data,title //loop data keypress is stop
 sel>data,title 
-show>data //flavor
-hide>data //flavor
+show>name //flavor
+hide>name //flavor
 ```
