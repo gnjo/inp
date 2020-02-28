@@ -5,6 +5,8 @@ minimal input engine
 script(src="https://gnjo.github.io/inp/inp.js")
 script(src="https://gnjo.github.io/inp/inp.lib.js")
 ```
+
+## $aaa=1 // inp.v['$aaa']=1
 ```
 
 let text=`
