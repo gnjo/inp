@@ -1,6 +1,7 @@
 /*history
 v0.1 make
 v0.2 keycall to inp.lib.js
+v0.3 trim2 big space is not
 */
 const CR="\n",HIDE=void 0
 var vlib={}
@@ -88,6 +89,10 @@ var vlib={}
  root.reader=entry;
 })(this);
 ;(function(root){
+ 
+ String.prototype.trim2 = function () { //big space is not
+   return this.replace(/^[ \r\n\t\uFEFF\xA0]+|[ \t\r\n\uFEFF\xA0]+$/g, '');
+ }; 
  //comment trim 
  function _c(d){return d.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,'')}
  //eval
@@ -97,8 +102,8 @@ var vlib={}
  //message rep
  function _m(obj){return obj.replace(/{(.*?)}/g,(d,dd)=>{return _(dd)}) }
  //trim { and }
- function _t(obj){return obj.replace(/{|}/g,'')}
- function _t2(obj){return obj.replace(/{{{|}}}/g,'').trim()}
+ function _t(obj){return obj.replace(/{|}/g,'')} 
+ function _t2(obj){return obj.replace(/{{{|}}}/g,'').trim2()/*.trim()*/}
  root._c=_c
  root._=_
  root._m=_m
