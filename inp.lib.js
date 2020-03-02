@@ -54,13 +54,13 @@ function keycall(caller){
   stock.push(one)
   body=stock.slice(-3).join('\n')||''
   o.v['$m']={head:head,foot:foot,body:body}
-  console.log('m',body)
+  //console.log('m',body)
   keycall((k,del)=>{
    one=ary.shift()
    if(one===void 0)return del(),o.next();
    stock.push(one)
    body=stock.slice(-3).join('\n')
-  console.log('m',body)    
+  //console.log('m',body)    
    o.v['$m']={head:head,foot:foot,body:body}  
   })
  }
@@ -77,14 +77,14 @@ function keycall(caller){
   one=ary.shift()
   stock.push(one)
   body=stock.slice(-1).join('\n')||''
-console.log('mc',body)   
+//console.log('mc',body)   
   o.v['$mc']={head:head,foot:foot,body:body}
   keycall((k,del)=>{
    one=ary.shift()
    if(one===void 0)return del(),o.next();
    stock.push(one)
    body=stock.slice(-1).join('\n')
-console.log('mc',body)    
+//console.log('mc',body)    
    o.v['$mc']={head:head,foot:foot,body:body}  
   })
  }
@@ -103,7 +103,7 @@ console.log('mc',body)
    let v=(ary[count+1]+'|||').split(/[|｜]/).slice(0,3)
    let f=(d)=>d.split(/[|｜]/).shift()
    body=ary.slice(count,count+3).map(f).map((d,i)=>(i===1)?mark+d:sp+d).join('\n')
-console.log('slot',body)    
+//console.log('slot',body)    
    return {head:head,foot:v[2],body:body,n:(count+1)%max,value:ary[count+1],v:v}  
   }
   ary=ary.concat(ary)
@@ -126,7 +126,7 @@ console.log('slot',body)
    if(count===0)body=sp+'\n'+mark+f(ary[count])+'\n'+sp+f(ary[count+1])
    if(count===max-1)body=sp+f(ary[count-1])+'\n'+mark+f(ary[count])+'\n'+sp
    //console.log(count,body)
-console.log('yon',body)    
+//console.log('yon',body)    
    return {head:head,foot:v[2],body:body,n:count===0?'y':'n',value:ary[count],v:v}
   }
   ;
@@ -154,7 +154,7 @@ console.log('yon',body)
    else body=sp+f(ary[count-1])+'\n'+mark+f(ary[count])+'\n'+sp+f(ary[count+1])//
    let page=('00'+(count+1)).slice(-2)+'/'+('00'+max).slice(-2)
    let h=fn.ostr(fn.rpad(head,30,'　'),fn.s2b(page) )
-console.log('sel',body)   
+//console.log('sel',body)   
    return {head:h,foot:v[2],body:body,n:count,value:ary[count],v:v,page:page}
   }
   o.v['$sel']=calc(count)
