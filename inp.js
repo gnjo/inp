@@ -2,6 +2,8 @@
 v0.1 make
 v0.2 keycall to inp.lib.js
 v0.3 trim2 big space is not
+v0.4 $$$ EVM only
+v0.5 disable create variable
 */
 const CR="\n",HIDE=void 0
 var vlib={}
@@ -115,7 +117,7 @@ var vlib={}
   //MRK JMP FNC EVM EVL 
  let vlib=root.vlib 
  vlib.CMM=(str,o)=>{return o.next()}
- vlib.EVL=(str,o)=>{return o.v['$$$'] = _(_t(str)),o.next()}
+ vlib.EVL=(str,o)=>{return /*o.v['$$$'] =*/ _(_t(str)),o.next()} //v0.4
  vlib.EVM=(str,o)=>{return o.v['$$$'] =_m(_t2(str)),o.next()}
  vlib.JMP=(str,o)=>{
   let a=str.split('>>>'),addr=_m(a[1]),i=/^\d+$/.test(addr)?parseInt(i):o.search(addr)
@@ -128,7 +130,7 @@ var vlib={}
   else return o.v['$JMP']=i,o.next(i)
  }
  vlib.MRK=(str,o)=>{
-  o.v['$$$'] = o.line////////
+  //o.v['$$$'] = o.line//////// v0.4
   o.v['$MRK'] =str;//v0.9
   //console.log(o.v,str)
   let n=o.v['$$f'][str]
@@ -139,7 +141,7 @@ var vlib={}
   let a=str.split('>'),cmd=a[0],_str=a[1]
   if(!vlib[cmd])return vlib.CMM(str,o),console.log('vlib cmd not found',cmd)
   //
-  if(o.v['$'+cmd]===undefined) o.v['$'+cmd]=void 0 //create valiable
+  //if(o.v['$'+cmd]===undefined) o.v['$'+cmd]=void 0 //create valiable
   return vlib[cmd](_str,o) //call next() is top function
  }
  root.vlib=vlib
