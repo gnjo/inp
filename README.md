@@ -33,3 +33,28 @@ yon>title,y  //yes or no, y or n
 show>name //flavor
 hide>name //flavor
 ```
+
+## wiredry draft
+```
+map>{$base},{$mask},B01
+warp>B01X01Y02N
+walk>{$k}
+{$walk.addr}>>>{'#'+$walk.addr}
+
+#B01X01Y02N
+{$f['#B01X01Y02N']!=2}>>>#B01X01Y02N.second
+//first event
+
+#B01X01Y02N.second
+
+{1}>>>###
+
+```
+
+
+
+
+
+
+
+
