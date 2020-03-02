@@ -166,6 +166,47 @@ function keycall(caller){
   })
  }
 
+lib.sel3=(str,o)=>{
+  let a=str.split(',').map(d=>_m(d))
+  ,list =a[0]
+  ,head=a[1]||'　',body='　',foot='　'
+  ,count=/^\d/.test(a[2])?parseInt(a[2]):0
+  ,pn=a[3]||9
+  ,ary=list.split('\n')
+  ,max=ary.length 
+  ,mark='＊',sp='　'
+  ,emp=fn.rpad('',pn,sp)
+  ,calc=(count)=>{
+   let v=(ary[count]+'|||').split(/[|｜]/).slice(0,3)
+   let f=(d)=>{
+    if(d===void 0)return emp 
+    return fn.rpad(d.split(/[|｜]/).shift(),pn,sp)
+   }
+   let pos=count%3-1//0=l,1=c,2=r
+   let a=Array.from({length:9}).map(d=>sp+emp)
+   let b=a.concat(ary.map(f).map((d,i)=>(i===count)?mark+d:sp+d)).concat(a)
+   let s=fn.arraychunk(b,3)
+   let line=~~((count+9)/3)
+   body= s[line-1].join('')+'\n'+s[line].join('')+'\n'+s[line+1].join('')
+   
+   let page=('00'+(count+1)).slice(-2)+'/'+('00'+max).slice(-2)
+   let h=fn.ostr(fn.rpad(head,30,'　'),fn.s2b(page) )
+//console.log('sel',body)   
+   return {head:h,foot:v[2],body:body,n:count,value:ary[count],v:v,page:page}
+  }
+  o.v['$sel3']=calc(count)
+
+  keycall((k,del)=>{
+   if(k==='A')return o.v['$sel']=calc(count),del(),o.next()///
+   //if(k==='B') count=1
+   if(k==='^')return count=Math.max(count-3,0),o.v['$sel3']=calc(count)
+   if(k==='<')return count=Math.max(--count,0),o.v['$sel3']=calc(count)
+   if(k==='>')return count=Math.min(++count,max-1),o.v['$sel3']=calc(count)   
+   if(k==='v')return count=Math.min(count+3,max-1),o.v['$sel3']=calc(count)   
+  })
+ }
+;
+ 
  root.vlib=lib
 })(this);
 
