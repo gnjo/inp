@@ -62,6 +62,30 @@ function keycall(caller){
    o.v['$m']={head:head,foot:foot,body:body}  
   })
  }
+ 
+ lib.mc=(str,o)=>{
+  let a=str.split(',').map(d=>_m(d))
+  ,list =a[0]
+  ,head=a[1]||'　'
+  ,body='　'
+  ,foot='　'
+  ;
+  body=list.split('\n')
+  let ary=list.split('\n'),stock=[],one
+  one=ary.shift()
+  stock.push(one)
+  body=stock.slice(-1).join('\n')
+  o.v['$mc']={head:head,foot:foot,body:body}
+  keycall((k,del)=>{
+   one=ary.shift()
+   if(one===void 0)return del(),o.next();
+   stock.push(one)
+   body=stock.slice(-1).join('\n')
+   o.v['$mc']={head:head,foot:foot,body:body}  
+  })
+ }
+ 
+ 
  lib.slot=(str,o)=>{
   let a=str.split(',').map(d=>_m(d))
   ,list =a[0]
