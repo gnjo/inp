@@ -52,7 +52,7 @@ function keycall(caller){
   let ary=list.split('\n'),stock=[],one
   one=ary.shift()
   stock.push(one)
-  body=stock.slice(-3).join('\n')
+  body=stock.slice(-3).join('\n')||''
   o.v['$m']={head:head,foot:foot,body:body}
   //console.log(o.v['$m'])   
   keycall((k,del)=>{
@@ -75,7 +75,7 @@ function keycall(caller){
   let ary=list.split('\n'),stock=[],one
   one=ary.shift()
   stock.push(one)
-  body=stock.slice(-1).join('\n')
+  body=stock.slice(-1).join('\n')||''
   o.v['$mc']={head:head,foot:foot,body:body}
   keycall((k,del)=>{
    one=ary.shift()
