@@ -120,6 +120,7 @@ function keycall(caller){
    let f=(d)=>d.split(/[|｜]/).shift()  
    if(count===0)body=sp+'\n'+mark+f(ary[count])+'\n'+sp+f(ary[count+1])
    if(count===max-1)body=sp+f(ary[count-1])+'\n'+mark+f(ary[count])+'\n'+sp
+   console.log(count,body)
    return {head:head,foot:v[2],body:body,n:count===0?'y':'n',value:ary[count],v:v}
   }
   ;
