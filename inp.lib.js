@@ -152,7 +152,7 @@ function keycall(caller){
   o.v['$sel']=calc(count)
 
   keycall((k,del)=>{
-   if(k==='A')return o.v['$sel']=calc(count),o.next()///
+   if(k==='A')return o.v['$sel']=calc(count),del(),o.next()///
    //if(k==='B') count=1
    if(k==='^')return count=Math.max(--count,0),o.v['$sel']=calc(count)
    if(k==='v')return count=Math.min(++count,max-1),o.v['$sel']=calc(count)   
