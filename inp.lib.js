@@ -126,13 +126,12 @@ function keycall(caller){
    if(count===0)body=sp+'\n'+mark+f(ary[count])+'\n'+sp+f(ary[count+1])
    if(count===max-1)body=sp+f(ary[count-1])+'\n'+mark+f(ary[count])+'\n'+sp
    //console.log(count,body)
-//console.log('yon',body)    
    return {head:head,foot:v[2],body:body,n:count===0?'y':'n',value:ary[count],v:v}
   }
   ;
   o.v['$yon']=calc(count)
   keycall((k,del)=>{
-   if(k==='A')return o.v['$yon']=calc,del(),o.next()
+   if(k==='A')return o.v['$yon']=calc(count),del(),o.next()
    if(k==='B')return count=1,o.v['$yon']=calc(count)
    if(k==='^')return count=Math.max(--count,0),o.v['$yon']=calc(count)
    if(k==='v')return count=(++count)%max,o.v['$yon']=calc(count)  
