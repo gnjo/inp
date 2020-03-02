@@ -197,7 +197,7 @@ lib.sel3=(str,o)=>{
   o.v['$sel3']=calc(count)
 
   keycall((k,del)=>{
-   if(k==='A')return o.v['$sel']=calc(count),del(),o.next()///
+   if(k==='A')return o.v['$sel3']=calc(count),del(),o.next()///
    //if(k==='B') count=1
    if(k==='^')return count=Math.max(count-3,0),o.v['$sel3']=calc(count)
    if(k==='<')return count=Math.max(--count,0),o.v['$sel3']=calc(count)
