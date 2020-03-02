@@ -54,7 +54,7 @@ function keycall(caller){
   stock.push(one)
   body=stock.slice(-3).join('\n')
   o.v['$m']={head:head,foot:foot,body:body}
-  console.log(o.v['$m'])   
+  //console.log(o.v['$m'])   
   keycall((k,del)=>{
    one=ary.shift()
    if(one===void 0)return del(),o.next();
