@@ -14,7 +14,7 @@ let fn={}
 let is={}
 is.color
 is.transparent
-
+;
 let o={}
 o._canvas=void 0;
 o._ctx=void 0;
@@ -27,20 +27,55 @@ o.set=(w,h,pen)=>{
  o._ctx=fn.getctx(o._canvas,w||640,h||480)
  Object.assign(o._pen,pen)
  Object.assign(o._ctx,fn.clone(o._pen))
+ o._ctx.save();//
  ;
  return o
 }
 ;
-o.img
+o._img=(src,x0,y0,pen,anim)=>{
+ let d=new Image(); d.src=src;
+ let w=d.nativeWidth,h=d.nativeHeight
+ ctx.drawImage(d,0,0,w,h,x0,y0,w,h)
+ ;
+ return o._ctx.restore(),o;
+}
+
 o._txt=(obj,x0,y0,pen,anim)=>{
  let ctx=o._ctx
  Object.assign(ctx,pen) //penset
  ctx.fillText(obj,x0,y0) //native
+ ;
+ return o._ctx.restore(),o;
+}
+o._box=(obj,x0,y0,pen,anim)=>{
+ let ctx=o._ctx
+ Object.assign(ctx,pen) //penset
+ is.transparent(pen.fillStyle)?ctx.strokeRect(x0,y0,a[0],a[1]):ctx.fillRect(x0,y0,a[0],a[1])
+ ctx.fillRect(x0,y0,obj[0],obj[1]) //native
  Object.assign(ctx,fn.clone(o._pen)) //penback
+ ;
+ return o._ctx.restore(),o;
+}
+o._poly=(obj,x0,y0,pen,anim)=>{
+ let ctx=o._ctx
+ Object.assign(ctx,pen) //penset
+ ctx.beginPath();
+ ctx.moveTo(obj[0],obj[1]);
+ for(i=2;i<obj.length;i+=2)
+  ctx.lineTo(obj[i],obj[i+1]);
+ 
+ ctx.closePath();
+ if(!is.transparent(pen.fillStyle)) ctx.fill()
+ if(!is.transparent(pen.strokeStyle)) ctx.stroke()
+ Object.assign(ctx,fn.clone(o._pen)) //penback    
  ;
  return o;
 }
-
+;
+o.img=(src,x0,y0,pen,anim)=>{
+ ;
+ return o.img(src,x0,y0,pen,anim)
+}
 ;
 o.txt=(obj,x0,y0,pen,anim)=>{
  return o.txtl(obj,x0,y0,pen,anim)
@@ -49,30 +84,21 @@ o.txtl=(obj,x0,y0,pen,anim)=>{
  let d=fn.clone(o._pen)
  if(is.color(pen))return o._txt(obj,x0,y0,Object.assign(d, {textAlign:"left",fillStyle:pen}),anim)
  ;
- return o._txt(obj,x0,y0,Object.assign(d, {textAlign:"left"}),anim)
+ return o._txt(obj,x0,y0,Object.assign(pen||d, {textAlign:"left"}),anim)
 }
 o.txtr=(obj,x0,y0,pen,anim)=>{
  let d=fn.clone(o._pen)
  if(is.color(pen))return o._txt(obj,x0,y0,Object.assign(d, {textAlign:"right",fillStyle:pen}),anim)
  ;
- return o._txt(obj,x0,y0,Object.assign(d, {textAlign:"right"}),anim)
+ return o._txt(obj,x0,y0,Object.assign(pen||d, {textAlign:"right"}),anim)
 }
 o.txtc=(obj,x0,y0,pen,anim)=>{
  let d=fn.clone(o._pen)
  if(is.color(pen))return o._txt(obj,x0,y0,Object.assign(d, {textAlign:"center",fillStyle:pen}),anim)
  ;
- return o._txt(obj,x0,y0,Object.assign(d, {textAlign:"center"}),anim)
+ return o._txt(obj,x0,y0,Object.assign(pen||d, {textAlign:"center"}),anim)
 }
 
-o._box=(obj,x0,y0,pen,anim)=>{
- let ctx=o._ctx
- Object.assign(ctx,pen) //penset
- is.transparent(pen.fillStyle)?ctx.strokeRect(x0,y0,a[0],a[1]):ctx.fillRect(x0,y0,a[0],a[1])
- ctx.fillRect(x0,y0,obj[0],obj[1]) //native
- Object.assign(ctx,fn.clone(o._pen)) //penback
- ;
- return o;
-}
 o.full=()=>{
  let w=o._canvas.width,h=o._canvas.height
  return o.box([w,h],0,0,"#000000")
@@ -91,34 +117,12 @@ o.boxb=(obj,x0,y0,pen,anim)=>{
  return o._box(obj,x0,y0,Object.assign(pen||d, {fillStyle:"transparent"}),anim)
 }
 
-o._poly=(obj,x0,y0,pen,anim)=>{
- let ctx=o._ctx
- Object.assign(ctx,pen) //penset
- ctx.beginPath();
- ctx.moveTo(obj[0],obj[1]);
- for(i=2;i<obj.length;i+=2)
-  ctx.lineTo(obj[i],obj[i+1]);
- 
- ctx.closePath();
- if(!is.transparent(pen.fillStyle)) ctx.fill()
- if(!is.transparent(pen.strokeStyle)) ctx.stroke()
- Object.assign(ctx,fn.clone(o._pen)) //penback    
- ;
- return o;
-}
 o.poly=(obj,x0,y0,pen,anim)=>{
  return o._poly(obj,x0,y0,pen,anim)
 }
 
-o.img=(src,x0,y0,pen,anim)=>{
- let d=new Image(); d.src=src;
- let w=d.nativeWidth,h=d.nativeHeight
-	ctx.drawImage(d,0,0,w,h,x0,y0,w,h)
- ;
- return o;
-}
 
-o.img
+//o.img
 //o.txt
 //o.txtl
 //o.txtr
