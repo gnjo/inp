@@ -1,12 +1,5 @@
 # inp.draw.js
 ```
-pen.strokeStyle="blue"
-pen.fillStyle="blue"
-pen.font = "30px 'ＭＳ ゴシック'";
-pen.textAlign="left";
-pen.textBaseline= "top";
-```
-```
 let fn={}
 fn.q=(d)=>document.querySelector(d)
 fn.getctx(el,w,h)={
@@ -145,6 +138,14 @@ o.poly=(obj,x0,y0,pen,anim)=>{
 //o.poly
 
 ```
+```
+pen.strokeStyle="blue"
+pen.fillStyle="blue"
+pen.font = "30px 'ＭＳ ゴシック'";
+pen.textAlign="left";
+pen.textBaseline= "top";
+```
+
 ```
 Draw>{option},x0,y0,penstyle,animation
 sDraw>{option},x0,y0,color
