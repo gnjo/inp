@@ -8,12 +8,24 @@ pen.textBaseline= "top";
 ```
 ```
 let fn={}
-//fn.q('canvas')
-//fn.getctx(el,w,h) =canvas.getContext('2d');
-//fn.clone(obj)
+fn.q=(d)=>document.querySelector(d)
+fn.getctx(el,w,h)={
+ el.width=w,el.height=h;
+ return el.getContext('2d');
+}
+fn.deep=d=>JSON.parse(JSON.stringify(d));
+fn.clone=fn.deep
+;
 let is={}
-is.color
-is.transparent
+is.string = function(obj){return toString.call(obj) === '[object String]'}
+is.color=(d)=>{
+ if(!is.string(d))return false;
+ return /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(d)
+}
+is.transparent=(d)=>{
+ if(!is.string(d))return false;
+ return /^transparent$/.test(d)
+}
 ;
 let o={}
 o._canvas=void 0;
