@@ -9,7 +9,7 @@ pen.textBaseline= "top";
 ```
 let fn={}
 //fn.q('canvas')
-//fn.getctx(el,w,h)
+//fn.getctx(el,w,h) =canvas.getContext('2d');
 //fn.clone(obj)
 let is={}
 is.color
@@ -91,6 +91,25 @@ o.boxb=(obj,x0,y0,pen,anim)=>{
  return o._box(obj,x0,y0,Object.assign(pen||d, {fillStyle:"transparent"}),anim)
 }
 
+o._poly=(obj,x0,y0,pen,anim)=>{
+ let ctx=o._ctx
+ Object.assign(ctx,pen) //penset
+ ctx.beginPath();
+ ctx.moveTo(obj[0],obj[1]);
+ for(i=2;i<obj.length;i+=2)
+  ctx.lineTo(obj[i],obj[i+1]);
+ 
+ ctx.closePath();
+ if(!is.transparent(pen.fillStyle)) ctx.fill()
+ if(!is.transparent(pen.strokeStyle)) ctx.stroke()
+ Object.assign(ctx,fn.clone(o._pen)) //penback    
+ ;
+ return o;
+}
+o.poly=(obj,x0,y0,pen,anim)=>{
+ return o._poly(obj,x0,y0,pen,anim)
+}
+
 o.img
 //o.txt
 //o.txtl
@@ -99,7 +118,7 @@ o.img
 //o.box
 //o.boxb
 //o.full
-o.poly
+//o.poly
 
 ```
 ```
