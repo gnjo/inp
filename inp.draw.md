@@ -110,6 +110,14 @@ o.poly=(obj,x0,y0,pen,anim)=>{
  return o._poly(obj,x0,y0,pen,anim)
 }
 
+o.img=(src,x0,y0,pen,anim)=>{
+ let d=new Image(); d.src=src;
+ let w=d.nativeWidth,h=d.nativeHeight
+	ctx.drawImage(d,0,0,w,h,x0,y0,w,h)
+ ;
+ return o;
+}
+
 o.img
 //o.txt
 //o.txtl
