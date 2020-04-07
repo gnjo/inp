@@ -1,4 +1,13 @@
 # inp.draw.js
+
+```
+draw cycle
+
+d>txt,aiuewo,10,10,{$pen1},hue,-1 //-1 is infinit
+dc> //draw clear, keep clear
+
+```
+
 ```
 let fn={}
 fn.q=(d)=>document.querySelector(d)
