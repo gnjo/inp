@@ -158,6 +158,9 @@ txtr
 txtc
 box([w,h],0,0,pen,anim)
 boxb
+
+dmg("-9",0,0,"#f26",16)
+
 $a=[x1,y1,x2,y2...]
 poly>{$a},20,30,effect
 full>
