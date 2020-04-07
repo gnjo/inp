@@ -6,6 +6,13 @@ draw cycle
 d>txt,aiuewo,10,10,{$pen1},hue,-1 //-1 is infinit
 dc> //draw clear, keep clear
 
+
+ctx.ex("txt,aiuewo,0,0,[#000,14 Almenda SC],hue,-1")
+ .ex("")
+ .stock("world")
+ .ex("full")
+ .ex("imgs,world")
+
 ```
 
 ```
