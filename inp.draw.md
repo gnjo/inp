@@ -162,6 +162,10 @@ $a=[x1,y1,x2,y2...]
 poly>{$a},20,30,effect
 full>
 
+d>img,{$a},20,30,{$pen1},fade,4
+d>txt,aiuewo,0,0,{$pen1},fade,4
+d>full
+
 pen={}
 pen.strokeStyle="blue"
 pen.fillStyle="blue"
