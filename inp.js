@@ -4,6 +4,7 @@ v0.2 keycall to inp.lib.js
 v0.3 trim2 big space is not
 v0.4 $$$ EVM only
 v0.5 disable create variable
+v0.9 speedup
 */
 const CR="\n",HIDE=void 0
 var vlib={}
@@ -170,7 +171,8 @@ var vlib={}
    if(o.isend())return console.log('endline') /////
    //$$l=o.line //v0.9
    let list=o.get();
-   if(list) o.v['$$l']=o.line,o.cmd(list);
+   if(list) o.v['$$l']=o.line,o.cmd(list),o.lop()
+   else setTimeout(o.lop,1000/o._fps)
    //if(list&&debugflg)console.log(list)
   }
   o.run= function entry(text,userlib,caller){
@@ -182,7 +184,8 @@ var vlib={}
    //if(debugflg)console.log(o.lists)
    //console.log(o.v['$$f'])
    o.v=new Proxy(o.v,{ set:(oo,k,v)=>{return o.caller(oo,k,v),oo[k]=v } })   
-   fps(o._fps,o.lop)
+   //fps(o._fps,o.lop) //speedup
+   o.lop()// speedup
    return o;
   }
   ;
