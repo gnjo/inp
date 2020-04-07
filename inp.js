@@ -171,8 +171,8 @@ var vlib={}
    if(o.isend())return console.log('endline') /////
    //$$l=o.line //v0.9
    let list=o.get();
-   if(list) o.v['$$l']=o.line,o.cmd(list),o.lop()
-   else setTimeout(o.lop,1000/o._fps)
+   if(list) o.v['$$l']=o.line,o.cmd(list),o.lop() //speedup
+   else setTimeout(o.lop,1000/o._fps) //sppedup
    //if(list&&debugflg)console.log(list)
   }
   o.run= function entry(text,userlib,caller){
