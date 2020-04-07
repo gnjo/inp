@@ -153,7 +153,7 @@ var vlib={}
   ;
   let o=reader();
   o.keyset='w,a,s,d,j,k,i,l,u,o'
-  o._fps=60
+  o._fps=200 //speedup
   o.v={}
   o.caller
   o.cmds
@@ -175,7 +175,7 @@ var vlib={}
    else setTimeout(o.lop,1000/o._fps) //sppedup
    //if(list&&debugflg)console.log(list)
   }
-  o.run= function entry(text,userlib,caller){
+  o.run= function entry(text,userlib,caller,_fps){
    o.caller=caller||function(o,k,v){return}
    o.cmds=Object.assign(vlib,userlib)   
    let isstring = function(obj){return toString.call(obj) === '[object String]'}
@@ -185,6 +185,7 @@ var vlib={}
    //console.log(o.v['$$f'])
    o.v=new Proxy(o.v,{ set:(oo,k,v)=>{return o.caller(oo,k,v),oo[k]=v } })   
    //fps(o._fps,o.lop) //speedup
+   o._fps=_fps||o._fps
    o.lop()// speedup
    return o;
   }
