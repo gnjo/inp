@@ -169,3 +169,16 @@ pen.font = "30px 'ＭＳ ゴシック'";
 pen.textAlign="left";
 pen.textBaseline= "top";
 ```
+
+```
+//エフェクトは残像で必ず消える。
+//effect
+//wipe wipeup
+push([effects,count])
+
+```
+
+
+
+
+
