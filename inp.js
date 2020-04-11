@@ -5,6 +5,7 @@ v0.3 trim2 big space is not
 v0.4 $$$ EVM only
 v0.5 disable create variable
 v0.9 speedup
+v1.0 jumpback issue 
 */
 const CR="\n",HIDE=void 0
 var vlib={}
@@ -121,7 +122,7 @@ var vlib={}
  vlib.EVL=(str,o)=>{return /*o.v['$$$'] =*/ _(_t(str)),o.next()} //v0.4
  vlib.EVM=(str,o)=>{return o.v['$$$'] =_m(_t2(str)),o.next()}
  vlib.JMP=(str,o)=>{
-  let a=str.split('>>>'),addr=_m(a[1]),i=/^\d+$/.test(addr)?parseInt(i):o.search(addr)
+  let a=str.split('>>>'),addr=_m(a[1]),i=/^\d+$/.test(addr)?parseInt(addr):o.search(addr) //v1.0 parseInt
   //console.log(a)
   if(o.v['$MRK']!=addr)o.setjumpback() //v0.9
   let flg = _(_t(a[0]));
