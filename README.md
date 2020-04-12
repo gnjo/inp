@@ -2,6 +2,7 @@
 minimal input engine
 ```
 //pug
+script(src="https://gnjo.github.io/inp/ctx.js")
 script(src="https://gnjo.github.io/inp/inp.js")
 script(src="https://gnjo.github.io/inp/inp.lib.js")
 ```
