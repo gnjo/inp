@@ -195,7 +195,16 @@ o.polyb=function(obj,x0,y0,pen,anim){
   ary.map(d=>ctx.putImageData(d.getImageData(0,0,w,h) ,0,0) )
   return ctx;
  }
- ;
+ o.pick=function pick(x,y,rgbaflg) {
+  let ctx=this;
+  let f=(d)=>('00'+d).slice(-2)
+  var data = ctx.getImageData(x, y, 1, 1).data
+  var hexa =`#${f(data[0].toString(16))}${f(data[1].toString(16))}${f(data[2].toString(16))}${f(data[3].toString(16))}`
+  if(!rgbaflg)return hexa
+  var rgba = `rgba(${data[0]},${data[1]},${data[2]},${(data[3] / 255)} )`;
+  return rgba;
+}
+;
   
  
  /////////////////////
