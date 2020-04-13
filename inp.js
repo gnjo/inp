@@ -6,6 +6,7 @@ v0.4 $$$ EVM only
 v0.5 disable create variable
 v0.9 speedup
 v1.0 jumpback issue 
+v1.1 PJS pure javascript {{{js ...}}}
 */
 const CR="\n",HIDE=void 0
 var vlib={}
@@ -34,12 +35,13 @@ var vlib={}
 ;(function(root){
   //MRK JMP FNC EVM EVL  
  let ma={
-  group:/#.*|{.*}>>>(#.*|{.*}|\d.*)|([\w\d].*)>.*|{{{([\s\S]*?)}}}|\$.*=.*/g
+  group:/#.*|{.*}>>>(#.*|{.*}|\d.*)|([\w\d].*)>.*|{{{js([\s\S]*?)}}}|{{{([\s\S]*?)}}}|\$.*=.*/g
   ,trim:/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm
-  ,types:'MRK,JMP,EVM,FNC,EVL,CMM'.split(',')
+  ,types:'MRK,JMP,EVM,FNC,PJS,EVL,CMM'.split(',')
   ,MRK:/^#.*/
   ,JMP:/^{.*}>>>(#.*|{.*}|\d.*)/ //jump
   ,EVL:/^\$.*=.*/ //eval javascript
+  ,PJS:/^{{{js([\s\S]*?)}}}/
   ,EVM:/^{{{([\s\S]*?)}}}/ //eval message
   ,FNC:/^([\w\d].*)>.*/
   ,CMM:/^.*/
@@ -108,11 +110,14 @@ var vlib={}
  //trim { and }
  function _t(obj){return obj.replace(/{|}/g,'')} 
  function _t2(obj){return obj.replace(/{{{|}}}/g,'').trim2()/*.trim()*/}
+ function _t3(obj){return obj.replace(/{{{js|}}}/g,'').trim2()/*.trim()*/} //v1.1
+
  root._c=_c
  root._=_
  root._m=_m
  root._t=_t
  root._t2=_t2 
+ root._t3=_t3
 })(this);
 //////////////////////////////////////////////
 ;(function(root){
@@ -120,6 +125,8 @@ var vlib={}
  let vlib=root.vlib 
  vlib.CMM=(str,o)=>{return o.next()}
  vlib.EVL=(str,o)=>{return /*o.v['$$$'] =*/ _(_t(str)),o.next()} //v0.4
+ vlib.PJS=(str,o)=>{return /*o.v['$$$'] =*/ _(_t3(str)),o.next()} //v1.1
+
  vlib.EVM=(str,o)=>{return o.v['$$$'] =_m(_t2(str)),o.next()}
  vlib.JMP=(str,o)=>{
   let a=str.split('>>>'),addr=_m(a[1]),i=/^\d+$/.test(addr)?parseInt(addr):o.search(addr) //v1.0 parseInt
