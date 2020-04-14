@@ -37,12 +37,11 @@ hide>name //flavor
 ## wrap {{{}}}
 
 ```
+{{\{
 $x=3
-{{{
 this is string {$x}
 }}}
-
-{{{js
+{{\{js
 //pure js world
 let a=10;
 let v=inp.v["$x"]+a
