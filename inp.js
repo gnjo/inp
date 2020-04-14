@@ -37,7 +37,7 @@ var vlib={}
  let ma={
   group:/#.*|{.*}>>>(#.*|{.*}|\d.*)|([\w\d].*)>.*|{{{js([\s\S]*?)}}}|{{{([\s\S]*?)}}}|\$.*=.*/g
   ,trim:/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm
-  ,types:'MRK,JMP,EVM,FNC,PJS,EVL,CMM'.split(',')
+  ,types:'MRK,JMP,PJS,EVM,FNC,EVL,CMM'.split(',')
   ,MRK:/^#.*/
   ,JMP:/^{.*}>>>(#.*|{.*}|\d.*)/ //jump
   ,EVL:/^\$.*=.*/ //eval javascript
@@ -48,7 +48,7 @@ var vlib={}
  }
  function lexs(text,offset){
   let oi=offset||0,jumps={}
-  let lists=text.replace(ma.trim,'').replace(ma.trim2,'').match(ma.group)  //v1.5 %{{{}}} cut
+  let lists=text.replace(ma.trim,'')/*.replace(ma.trim2,'')*/.match(ma.group)  //v1.5 %{{{}}} cut
   .map((d,i)=>{
    let type='CMM';
    for(type of ma.types)
