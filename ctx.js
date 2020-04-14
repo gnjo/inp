@@ -177,7 +177,7 @@ o.polyb=function(obj,x0,y0,pen,anim){
  o.pen=function(str){
   let ctx=this
   
-  let a=str.split(',').slice(1),name=a[0];
+  let ary=str.split(','),a=ary.slice(1),name=ary[0];
   pens[name]=a
   return ctx;
  }
