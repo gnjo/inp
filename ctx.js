@@ -32,8 +32,8 @@ function topen(name,fillflg){
 }
 
 ///////////////////////
-function entry(w,h){
- let canvas=document.createElement('canvas')
+function entry(w,h,query){
+ let canvas=(query)?document.querySelector(query):document.createElement('canvas')
  canvas.width=w,canvas.height=h
  let o=canvas.getContext('2d')
  
