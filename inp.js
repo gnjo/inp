@@ -105,6 +105,7 @@ var vlib={}
  //special
  function f(a){return a.replace(/\$[\$\w]+/g,d=>`inp.v["${d}"]`)}
  function _(obj){return Function(`return (${f(obj)}) `)()}
+ function _e(obj){return eval(obj)}
  //message rep
  function _m(obj){return obj.replace(/{(.*?)}/g,(d,dd)=>{return _(dd)}) }
  //trim { and }
@@ -114,6 +115,7 @@ var vlib={}
 
  root._c=_c
  root._=_
+ root._e=_e
  root._m=_m
  root._t=_t
  root._t2=_t2 
@@ -125,7 +127,7 @@ var vlib={}
  let vlib=root.vlib 
  vlib.CMM=(str,o)=>{return o.next()}
  vlib.EVL=(str,o)=>{return /*o.v['$$$'] =*/ _(_t(str)),o.next()} //v0.4
- vlib.PJS=(str,o)=>{return /*o.v['$$$'] =*/ _(_t3(str)),o.next()} //v1.1
+ vlib.PJS=(str,o)=>{return /*o.v['$$$'] =*/ _e(_t3(str)),o.next()} //v1.1
 
  vlib.EVM=(str,o)=>{return o.v['$$$'] =_m(_t2(str)),o.next()}
  vlib.JMP=(str,o)=>{
