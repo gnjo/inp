@@ -37,16 +37,18 @@ hide>name //flavor
 ## wrap {{{}}}
 
 ```
-{{\{
+triple mustang { { {
+{x3
+
 $x=3
 this is string {$x}
-}}}
-{{\{js
+}
+{x3 js
 //pure js world
 let a=10;
 let v=inp.v["$x"]+a
 console.log(v) //13
-}}}
+}x3
 
 //one line is good
 $x=console.log($x) //one line script $x replace inp.v['$x']
