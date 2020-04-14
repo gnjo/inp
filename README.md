@@ -34,7 +34,24 @@ yon>title,y  //yes or no, y or n
 show>name //flavor
 hide>name //flavor
 ```
+## wrap {{{}}}
 
+```
+$x=3
+{{{
+this is string {$x}
+}}}
+
+{{{js
+//pure js world
+let a=10;
+let v=inp.v["$x"]+a
+console.log(v) //13
+}}}
+
+//one line is good
+$x=console.log($x) //one line script $x replace inp.v['$x']
+```
 ## wiredry draft
 ```
 map>{$base},{$mask},B01
